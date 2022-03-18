@@ -1,4 +1,4 @@
-var http = require("http"); 
+var http = require("http");
 
 const firebaseApp = require("firebase/app");
 const firebaseDatabase = require("firebase/database");
@@ -46,6 +46,9 @@ http
 
         res.write(first + middle.join("") + second);
         res.end();
+        res.setHeader('Access-Control-Allow-Origin', 'https://sebdoe.com');
+        res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+        res.setHeader('Access-Control-Max-Age', 2592000);
       }
     );
   })
