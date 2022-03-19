@@ -24,8 +24,8 @@ http
     res.setHeader('Access-Control-Max-Age', 2592000);
     res.setHeader('Content-Type', 'application/xml');
     
-    firebaseDatabase.onValue(
-      firebaseDatabase.ref(db, "/blog/posts"),
+    firebaseDatabase.get(
+      firebaseDatabase.child(firebaseDatabase.ref(db, "/blog/posts")).then(
       (snapshot) => {
         const first = `
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
@@ -95,6 +95,7 @@ http
         res.write(first + middle.join("") + second);
         res.end();
       }
+      )
     );
   })
   .listen(process.env.PORT || 8080);
